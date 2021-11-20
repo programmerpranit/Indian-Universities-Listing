@@ -1,6 +1,9 @@
 package com.psp.universitylisting.dependencyInjection
 
+import android.app.Application
+import androidx.room.Room
 import com.psp.universitylisting.api.UniversityApi
+import com.psp.universitylisting.data.UniversityDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,5 +30,9 @@ object AppModule {
     fun provideUniversityApi(retrofit: Retrofit):UniversityApi =
         retrofit.create(UniversityApi::class.java)
 
+    @Provides
+    @Singleton
+    fun provideDatabase(app:Application): UniversityDatabase =
+        Room.databaseBuilder(app, UniversityDatabase::class.java,"university_Database").build()
 
 }
